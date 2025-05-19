@@ -18,7 +18,14 @@ public class ResourceAndResourceLoaderTest {
 	public void testResourceLoader() throws Exception {
 		DefaultResourceLoader resourceLoader = new DefaultResourceLoader();
 
-		//加载classpath下的资源
+		//加载classpath下的资源:
+
+		/**
+		 * 类路径:
+		 * src/main/resource 是 maven 默认的资源目录, src/main 目录下的内容在 maven 构建时被处理，
+		 * 并被复制到 target/classes 目录中, /src/main/java 中的文件会被解析出 com 的路径。
+		   那实际上 resource 的文件就是和 java 中的文件是同一个目录
+		 */
 		Resource resource = resourceLoader.getResource("classpath:hello.txt");
 		InputStream inputStream = resource.getInputStream();
 		String content = IoUtil.readUtf8(inputStream);
