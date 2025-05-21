@@ -101,6 +101,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
 
 		try {
+			// Bean 的初始化方法
 			invokeInitMethods(beanName, wrappedBean, beanDefinition);
 		} catch (Throwable ex) {
 			throw new BeansException("Invocation of init method of bean[" + beanName + "] failed", ex);
@@ -149,6 +150,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * @throws Throwable
 	 */
 	protected void invokeInitMethods(String beanName, Object bean, BeanDefinition beanDefinition) throws Throwable {
+		// InitializingBean 这个是什么东西？
+		/*
+		 * 这个是初始化的两种实现：
+		 * 一个是在 xml 里面定义的初始化方法, 我们调用定义的方法进行初始化
+		 * 一种是继承 InitializingBean 的，继承 InitializingBean 的，直接调用 afterPropertiesSet 方法
+		 *  上面两种方法只要有一种就可以了。底下的判断，判断了只走一个。
+		 *
+		 */
 		if (bean instanceof InitializingBean) {
 			((InitializingBean) bean).afterPropertiesSet();
 		}
