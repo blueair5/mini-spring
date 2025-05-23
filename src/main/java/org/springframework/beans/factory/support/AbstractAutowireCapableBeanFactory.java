@@ -23,7 +23,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 	@Override
 	protected Object createBean(String beanName, BeanDefinition beanDefinition) throws BeansException {
-		//如果bean需要代理，则直接返回代理对象
+		//如果bean需要代理，则直接返回代理对象, 从这里短路了，如果走了代理，则不走创建 Bean 的逻辑
 		Object bean = resolveBeforeInstantiation(beanName, beanDefinition);
 		if (bean != null) {
 			return bean;
